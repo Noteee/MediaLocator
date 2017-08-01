@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="view\MediaDesign.cs" />
+    <Compile Include="view\MediaView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,6 +65,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="content\Filter.cs" />
+    <Compile Include="content\Listing.cs" />
+    <Compile Include="enums\MusicFormats.cs" />
+    <Compile Include="enums\PictureFormats.cs" />
+    <Compile Include="enums\videoFormats.cs" />
+    <Compile Include="filesystem\FolderBrowser.cs" />
+    <Compile Include="filesystem\FolderWatcher.cs" />
+    <Compile Include="filesystem\MediaFunctions.cs" />
+    <Compile Include="logging\Logging.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -97,12 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="components\" />
-    <Folder Include="content\" />
-    <Folder Include="enums\" />
-    <Folder Include="filesystem\" />
-    <Folder Include="logging\" />
     <Folder Include="testing\" />
-    <Folder Include="view\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,7 +10,7 @@ namespace MediaLocator.enums
     {
         public enum videoFormats
         {
-            // write formats here
+            WEBM, MKV, AVI, FLV, MOV, WMV, AMV, M4V
         }
     }
 }
