@@ -220,9 +220,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\pause.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
