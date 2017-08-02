@@ -40,7 +40,7 @@ namespace MediaLocator
 
         private void PictureBtn_Click(object sender, RoutedEventArgs e)
         {
-            FillFilteredList(PictureFormats.pictureFormats);
+            
         }
 
         private void OpenFolder_Click(object sender, RoutedEventArgs e)
