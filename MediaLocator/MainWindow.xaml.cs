@@ -14,6 +14,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MediaLocator.filesystem;
+using MediaLocator.enums;
 
 namespace MediaLocator
 {
@@ -23,14 +25,29 @@ namespace MediaLocator
     public partial class MainWindow : MetroWindow
     {
         private int clicks = 1;
+        private string folderPath;
 
         public MainWindow()
         {
             InitializeComponent();
             slideMenu.Click += new RoutedEventHandler((sender, e) => SlideMenu_Click(sender,e, NavPanel));
+            openFolder.Click += OpenFolder_Click;
+            pictureBtn.Click += PictureBtn_Click;
             hidePlayer();
             
             
+        }
+
+        private void PictureBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FillFilteredList(PictureFormats.pictureFormats);
+        }
+
+        private void OpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            getMediaFolder();
+            fillFileList();
+            folderpath.Content = folderPath;
         }
 
         private void SlideMenu_Click(object sender, RoutedEventArgs e, StackPanel pnl)
@@ -77,6 +94,41 @@ namespace MediaLocator
             splitBtn.Opacity = 100;
             splitTime.Opacity = 100;
         }
+
+        private void getMediaFolder()
+        {
+            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            if (dialog.ShowDialog(this).GetValueOrDefault())
+            {
+                folderPath = dialog.SelectedPath;
+            }
+        }
+
+        private void fillFileList()
+        {
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.getFileList(folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText {Name = file.ToString()});
+            }
+        }
+        public class ListviewText
+        {
+            public string Name { get; set; }
+            
+        }
+
+        private void FillFilteredList()
+        {
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.GetFilteredList(folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+            }
+        }
+
+
+
     }
 
 }

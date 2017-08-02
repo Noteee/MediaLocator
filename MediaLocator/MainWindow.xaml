@@ -74,8 +74,7 @@
             </ListView.Background>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding Type}" />
-                    <GridViewColumn Header="File Name" Width="350" DisplayMemberBinding="{Binding FileName}" />
+                    <GridViewColumn Header="File Name" Width="400" DisplayMemberBinding="{Binding Name}" />
                 </GridView>
             </ListView.View>
         </ListView>
@@ -104,7 +103,7 @@
             </Button.RenderTransform>
 
         </Button>
-        <Label x:Name="label" Content="Choose folder . . ." HorizontalAlignment="Left" Margin="52,34,0,0" VerticalAlignment="Top" Foreground="#FFA2A2A5" Width="772"/>
+        <Label x:Name="folderpath" Content="Choose folder . . ." HorizontalAlignment="Left" Margin="52,34,0,0" VerticalAlignment="Top" Foreground="#FFA2A2A5" Width="772"/>
         <StackPanel HorizontalAlignment="Left" Height="396" Margin="10,92,0,0" VerticalAlignment="Top" Width="533"/>
         <Button x:Name="pictureBtn" Content="" HorizontalAlignment="Left" Margin="606,572,0,-43" Width="40" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.422,0.472" BorderThickness="0" ClickMode="Press" Focusable="False" Style="{StaticResource MyButton}" ToolTip="Show only images">
             <Button.Background>

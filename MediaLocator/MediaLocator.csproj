@@ -47,6 +47,10 @@
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PlaylistSharpLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlaylistSharp.1.0.0\lib\PlaylistSharpLib.dll</HintPath>
       <Private>True</Private>
@@ -126,7 +130,7 @@
     <Compile Include="content\Listing.cs" />
     <Compile Include="enums\MusicFormats.cs" />
     <Compile Include="enums\PictureFormats.cs" />
-    <Compile Include="enums\videoFormats.cs" />
+    <Compile Include="enums\VideoFormats.cs" />
     <Compile Include="filesystem\FolderBrowser.cs" />
     <Compile Include="filesystem\FolderWatcher.cs" />
     <Compile Include="filesystem\MediaFunctions.cs" />
