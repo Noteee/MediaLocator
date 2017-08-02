@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Id3, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ID3.0.3.0\lib\net40\Id3.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.1\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
       <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
@@ -66,6 +72,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="enums\Formats.cs" />
+    <Compile Include="enums\MusicFormats.cs" />
+    <Compile Include="enums\PictureFormats.cs" />
+    <Compile Include="enums\videoFormats.cs" />
     <Compile Include="filesystem\FolderBrowser.cs" />
     <Compile Include="filesystem\FolderWatcher.cs" />
     <Compile Include="filesystem\MediaFunctions.cs" />
@@ -103,12 +113,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="components\" />
     <Folder Include="content\" />
-    <Folder Include="enums\" />
     <Folder Include="logging\" />
     <Folder Include="testing\" />
     <Folder Include="view\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="components\NAudio.dll" />
+    <Content Include="components\UltraID3Lib.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaLocator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="546" Width="1309">
     <Grid>
-        <ListBox x:Name="fileListBox" HorizontalAlignment="Left" Height="199" Margin="32,26,0,0" VerticalAlignment="Top" Width="462" SelectionChanged="fileListBox_SelectionChanged"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270*"/>
+            <ColumnDefinition Width="247*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="fileListBox" HorizontalAlignment="Left" Height="199" Margin="32,26,0,0" VerticalAlignment="Top" Width="462" SelectionChanged="fileListBox_SelectionChanged" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="fileListBox2" HorizontalAlignment="Left" Height="199" Margin="538,26,0,0" VerticalAlignment="Top" Width="448" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

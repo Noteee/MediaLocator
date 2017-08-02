@@ -13,21 +13,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MediaLocator.filesystem;
+using MediaLocator.enums;
+using System.Collections;
+
 namespace MediaLocator
 {
 
     
     public partial class MainWindow : Window
     {
+        private ArrayList selectedFormat = new ArrayList();
+
         private string folderPath;
         public MainWindow()
         {
+            selectedFormat = MusicFormats.getMusicFormatList();
             InitializeComponent();
             getMediaFolder();
             fillFileList();
-
-
+            FillFilteredList(selectedFormat);
+            FolderBrowser.GetFilteredList(selectedFormat,folderPath);
         }
+
 
         private void getMediaFolder()
         {
@@ -49,12 +56,12 @@ namespace MediaLocator
             }
         }
 
-        private void FillFilteredList(string extension)
+        private void FillFilteredList(ArrayList formatFilter)
         {
-            fileListBox.Items.Clear();
-            foreach (var file in FolderBrowser.GetFilteredList(folderPath))
+            fileListBox2.Items.Clear();
+            foreach (var file in FolderBrowser.GetFilteredList(formatFilter,folderPath))
             {
-                fileListBox.Items.Add(file);
+                fileListBox2.Items.Add(file);
 
             }
         }

@@ -5,12 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediaLocator.enums;
 
 namespace MediaLocator.filesystem
 {
     class FolderBrowser
     {
-        private string path;
         public void getFolder()
         {
             // use FolderBrowserDialog for browsing
@@ -27,14 +27,13 @@ namespace MediaLocator.filesystem
             try
             {
 
-                foreach (string d in Directory.GetDirectories(sDir))
+                FileInfo[] collection = new DirectoryInfo(sDir).GetFiles();
+                foreach (var fileinfo in collection)
                 {
-                    foreach (string f in Directory.GetFiles(d))
-                    {
-                        files.Add(Path.GetFileName(f));
-                    }
-                    getFileList(d);
+                    files.Add(fileinfo.Name);
                 }
+                   
+                
             }
             catch (System.Exception excpt)
             {
@@ -42,15 +41,26 @@ namespace MediaLocator.filesystem
             }
             return files;
         }
-        public static ArrayList GetFilteredList(Enum FilterType,string filePath)
+        public static ArrayList GetFilteredList(ArrayList formatList,string filePath)
         {
             ArrayList filteredList = new ArrayList();
 
-            foreach(string file in Directory.GetFiles(filePath))
-            {
-                filteredList.Add(Path.GetFileName(file));
-                
-            }
+           
+                FileInfo[] collection = new DirectoryInfo(filePath).GetFiles();
+                    foreach (var fileinfo in collection)
+                    {
+                        foreach(var extension in formatList)
+                        {
+                            if(fileinfo.Extension.ToUpper().Equals("." + extension.ToString().ToUpper()))
+                            {
+                                filteredList.Add(fileinfo.Name);
+                                Console.WriteLine(fileinfo.Name);
+                            
+                            }
+                        }
+                        
+                    }
+                           
 
 
             return filteredList;

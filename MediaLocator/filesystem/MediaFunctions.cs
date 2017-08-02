@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
-using HundredMilesSoftware.UltraID3Lib;
+//using HundredMilesSoftware.UltraID3Lib;
 using NAudio.Wave;
 
 namespace MediaLocator.filesystem
@@ -13,7 +13,7 @@ namespace MediaLocator.filesystem
     class MediaFunctions
     {
 
-        public List<string> ViewMp3Tags(string path)
+       /* public List<string> ViewMp3Tags(string path)
         {
             List<string> tags = new List<string>();
             UltraID3 data = new UltraID3();
@@ -108,8 +108,8 @@ namespace MediaLocator.filesystem
                 if(writer != null) writer.Dispose();
             }
 
-        }
-
+        }*/
+        
         
 
     }
