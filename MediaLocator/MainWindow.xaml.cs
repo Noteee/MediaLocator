@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace MediaLocator
 {
     /// <summary>
@@ -23,6 +22,35 @@ namespace MediaLocator
         public MainWindow()
         {
             InitializeComponent();
+            getMediaFolder();
+            fillFileList();
+
+
+        }
+
+        private void getMediaFolder()
+        {
+            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            if (dialog.ShowDialog(this).GetValueOrDefault())
+            {
+                pathLabel.Content = dialog.SelectedPath;
+            }
+        }
+
+
+
+        private void fillFileList()
+        {
+            fileListBox.Items.Clear();
+            foreach (var file in FolderBrowser.getFileList(pathLabel.Content.ToString()))
+            {
+                fileListBox.Items.Add(file.ToString());
+            }
+        }
+
+        private void fileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
