@@ -6,5 +6,7 @@
         xmlns:local="clr-namespace:MediaLocator"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid/>
+    <Grid>
+        <ListBox x:Name="fileListBox" HorizontalAlignment="Left" Height="199" Margin="32,26,0,0" VerticalAlignment="Top" Width="462" SelectionChanged="fileListBox_SelectionChanged"/>
+    </Grid>
 </Window>

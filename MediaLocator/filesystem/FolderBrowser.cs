@@ -31,7 +31,7 @@ namespace MediaLocator.filesystem
                 {
                     foreach (string f in Directory.GetFiles(d))
                     {
-                        files.Add(f);
+                        files.Add(Path.GetFileName(f));
                     }
                     getFileList(d);
                 }
@@ -41,6 +41,19 @@ namespace MediaLocator.filesystem
                 Console.WriteLine(excpt.Message);
             }
             return files;
+        }
+        public static ArrayList GetFilteredList(Enum FilterType,string filePath)
+        {
+            ArrayList filteredList = new ArrayList();
+
+            foreach(string file in Directory.GetFiles(filePath))
+            {
+                filteredList.Add(Path.GetFileName(file));
+                
+            }
+
+
+            return filteredList;
         }
 
     }

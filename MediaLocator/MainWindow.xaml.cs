@@ -16,9 +16,10 @@ using MediaLocator.filesystem;
 namespace MediaLocator
 {
 
-
+    
     public partial class MainWindow : Window
     {
+        private string folderPath;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace MediaLocator
             var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
-                pathLabel.Content = dialog.SelectedPath;
+                folderPath = dialog.SelectedPath;
             }
         }
 
@@ -42,21 +43,25 @@ namespace MediaLocator
         private void fillFileList()
         {
             fileListBox.Items.Clear();
-            foreach (var file in FolderBrowser.getFileList(pathLabel.Content.ToString()))
+            foreach (var file in FolderBrowser.getFileList(folderPath))
             {
-                fileListBox.Items.Add(file.ToString());
+                fileListBox.Items.Add(file);
             }
         }
 
         private void FillFilteredList(string extension)
         {
             fileListBox.Items.Clear();
-            foreach (var file in FolderBrowser.getFileList(pathLabel.Content.ToString()))
+            foreach (var file in FolderBrowser.GetFilteredList(folderPath))
             {
-                if(extens)
-                fileListBox.Items.Add(file.ToString());
+                fileListBox.Items.Add(file);
+
             }
         }
 
+        private void fileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
