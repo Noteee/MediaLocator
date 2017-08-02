@@ -61,6 +61,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TestApplications\WpfTest\WpfTest\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestApplications\WpfTest\WpfTest\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\App.g.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\App.g.i.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\MainWindow.g.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\MainWindow.g.i.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Release\App.g.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\obj\Release\MainWindow.g.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\Properties\AssemblyInfo.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\Properties\Resources.Designer.cs" />
+    <Compile Include="TestApplications\WpfTest\WpfTest\Properties\Settings.Designer.cs" />
     <Compile Include="view\MediaDesign.cs" />
     <Compile Include="view\MediaView.cs" />
     <Page Include="MainWindow.xaml">
@@ -84,6 +102,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TestApplications\WpfTest\WpfTest\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestApplications\WpfTest\WpfTest\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -103,18 +129,46 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.g.resources" />
+    <EmbeddedResource Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.Properties.Resources.resources" />
+    <EmbeddedResource Include="TestApplications\WpfTest\WpfTest\Properties\Resources.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="TestApplications\WpfTest\WpfTest\App.config" />
+    <None Include="TestApplications\WpfTest\WpfTest\bin\Debug\WpfTest.exe.config" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\CoreCompileInputs.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.GenerateResource.Cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.csprojResolveAssemblyReference.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest_MarkupCompile.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest_MarkupCompile.i.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest_MarkupCompile.lref" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Release\CoreCompileInputs.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Release\WpfTest_MarkupCompile.cache" />
+    <None Include="TestApplications\WpfTest\WpfTest\obj\Release\WpfTest_MarkupCompile.lref" />
+    <None Include="TestApplications\WpfTest\WpfTest\Properties\Settings.settings" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="components\" />
+    <Folder Include="TestApplications\WpfTest\WpfTest\bin\Release\" />
+    <Folder Include="TestApplications\WpfTest\WpfTest\obj\Debug\TempPE\" />
     <Folder Include="testing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestApplications\WpfTest\WpfTest.sln" />
+    <Content Include="TestApplications\WpfTest\WpfTest\bin\Debug\WpfTest.exe" />
+    <Content Include="TestApplications\WpfTest\WpfTest\bin\Debug\WpfTest.pdb" />
+    <Resource Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.csproj.FileListAbsolute.txt" />
+    <Content Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.exe" />
+    <Content Include="TestApplications\WpfTest\WpfTest\obj\Debug\WpfTest.pdb" />
+    <Content Include="TestApplications\WpfTest\WpfTest\WpfTest.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
