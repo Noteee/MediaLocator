@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MediaLocator.filesystem;
 using MediaLocator.enums;
 using System.Collections;
+using MediaLocator.logging;
 
 namespace MediaLocator
 {
@@ -23,6 +24,7 @@ namespace MediaLocator
     public partial class MainWindow : Window
     {
         private ArrayList selectedFormat = new ArrayList();
+        private List<FileModification> modificationList = new List<FileModification>();
 
         private string folderPath;
         public MainWindow()
