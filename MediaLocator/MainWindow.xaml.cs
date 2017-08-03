@@ -16,6 +16,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MediaLocator.filesystem;
 using MediaLocator.enums;
+using System.Collections;
+using MediaLocator.view;
+using MediaLocator.filesystem;
+using System.IO;
 
 namespace MediaLocator
 {
@@ -26,21 +30,86 @@ namespace MediaLocator
     {
         private int clicks = 1;
         private string folderPath;
+        public static ArrayList check = new ArrayList();
+        private static MediaView getView;
+
+
+
 
         public MainWindow()
         {
             InitializeComponent();
-            slideMenu.Click += new RoutedEventHandler((sender, e) => SlideMenu_Click(sender,e, NavPanel));
+            slideMenu.Click += new RoutedEventHandler((sender, e) => SlideMenu_Click(sender, e, NavPanel));
             openFolder.Click += OpenFolder_Click;
             pictureBtn.Click += PictureBtn_Click;
+            musicBtn.Click += MusicBtn_Click;
+            videoBtn.Click += VideoBtn_Click;
+            ListFiles.MouseDoubleClick += ListFiles_MouseDoubleClick;
             hidePlayer();
+            getView = new MediaView(PalyingProgress);
+
+
+
+    }
+
+        private void ListFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PalyingProgress.Value = 0;
+            var selectedStockObject = ListFiles.SelectedItem as ListviewText;
+            string filename = selectedStockObject.ToString();
+            string fullPath = folderPath + @"\" + filename;
+            getView.getMedia(fullPath, mediaPanel);
+
+            FileInfo file = new FileInfo(fullPath);
+            string ex = file.Extension.Substring(1, file.Extension.Length - 1);
+            hidePlayer();
+            foreach (string item in FolderBrowser.getMusics())
+            {
+                if (item.Equals(ex.ToUpper()))
+                {
+                    showPlayer();
+
+                }
+
+            }
+            foreach (string item in FolderBrowser.getVideos())
+            {
+                if (item.Equals(ex.ToUpper()))
+                {
+                    showPlayer();
+                }
+            }
+            MediaView.playMedia();
+            getView.setTimer();
             
-            
+
+        }
+
+        private void VideoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.GetFilteredList(FolderBrowser.getVideos(), folderPath, folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+            }
+        }
+
+        private void MusicBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.GetFilteredList(FolderBrowser.getMusics(), folderPath, folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+            }
         }
 
         private void PictureBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.GetFilteredList(FolderBrowser.getPictures(), folderPath, folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+            }
         }
 
         private void OpenFolder_Click(object sender, RoutedEventArgs e)
@@ -55,7 +124,7 @@ namespace MediaLocator
             if (clicks % 2 == 0)
             {
                 ShowHideMenu("sbHideBottomMenu", NavPanel);
-                
+
             }
             else
             {
@@ -89,10 +158,28 @@ namespace MediaLocator
             playerBg.Opacity = 100;
             PalyingProgress.Opacity = 100;
             playBtn.Opacity = 100;
+            playBtn.Click += PlayBtn_Click;
             pauseBtn.Opacity = 100;
+            pauseBtn.Click += PauseBtn_Click;
             stopBtn.Opacity = 100;
+            stopBtn.Click += StopBtn_Click;
             splitBtn.Opacity = 100;
             splitTime.Opacity = 100;
+        }
+
+        private void StopBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MediaView.stopMedia();
+        }
+
+        private void PauseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MediaView.pauseMedia();
+        }
+
+        private void PlayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MediaView.playMedia();
         }
 
         private void getMediaFolder()
@@ -109,25 +196,39 @@ namespace MediaLocator
             ListFiles.Items.Clear();
             foreach (var file in FolderBrowser.getFileList(folderPath, folderPath))
             {
-                ListFiles.Items.Add(new ListviewText {Name = file.ToString()});
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+                
             }
         }
         public class ListviewText
         {
             public string Name { get; set; }
-            
+            public override string ToString()
+            {
+                return Name;
+            }
+
         }
 
-        /*private void FillFilteredList()
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            ListFiles.Items.Clear();
-            foreach (var file in FolderBrowser.GetFilteredList(folderPath))
+            check.Clear();
+
+            //string getit = "";
+            int count = ListFiles.SelectedItems.Count;
+            for (int i = 0; i < count; i++)
             {
-                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+                var selectedStockObject = ListFiles.SelectedItems[i] as ListviewText;
+                check.Add(selectedStockObject);
+
             }
-        }*/
+            /*foreach (var checkd in check)
+            {
+                getit += checkd + " ";
+                MessageBox.Show(getit);
+            }*/
 
-
+        }
 
     }
 

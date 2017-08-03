@@ -68,12 +68,21 @@
             </Rectangle.Effect>
         </Rectangle>
         <Image x:Name="search" HorizontalAlignment="Left" Height="25" Margin="22,35,0,0" VerticalAlignment="Top" Width="25" Source="pack://application:,,,/Images/search.png" RenderTransformOrigin="0.42,0.609"/>
+
         <ListView x:Name="ListFiles" HorizontalAlignment="Left" Height="409" Margin="561,79,0,0" VerticalAlignment="Top" Width="371" Foreground="White" BorderBrush="{x:Null}">
             <ListView.Background>
                 <ImageBrush/>
             </ListView.Background>
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="Select">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Checked="CheckBox_Checked" IsChecked="{Binding Path=IsSelected, 
+   RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="File Name" Width="400" DisplayMemberBinding="{Binding Name}" />
                 </GridView>
             </ListView.View>
@@ -104,7 +113,7 @@
 
         </Button>
         <Label x:Name="folderpath" Content="Choose folder . . ." HorizontalAlignment="Left" Margin="52,34,0,0" VerticalAlignment="Top" Foreground="#FFA2A2A5" Width="772"/>
-        <StackPanel HorizontalAlignment="Left" Height="396" Margin="10,92,0,0" VerticalAlignment="Top" Width="533"/>
+        <StackPanel x:Name="mediaPanel" Height="396" Margin="10,92,399,0" VerticalAlignment="Top"/>
         <Button x:Name="pictureBtn" Content="" HorizontalAlignment="Left" Margin="606,572,0,-43" Width="40" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.422,0.472" BorderThickness="0" ClickMode="Press" Focusable="False" Style="{StaticResource MyButton}" ToolTip="Show only images">
             <Button.Background>
                 <ImageBrush ImageSource="pack://application:,,,/Images/picture.png" Stretch="Uniform"/>
