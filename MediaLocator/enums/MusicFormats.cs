@@ -10,7 +10,7 @@ namespace MediaLocator.enums
     {
         public enum musicFormats
         {
-            // write formats here
+            WAV, MP3, WMA, MP4, FLAC, M3U
         }
     }
 }

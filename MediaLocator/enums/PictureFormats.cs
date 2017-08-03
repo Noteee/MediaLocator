@@ -10,7 +10,7 @@ namespace MediaLocator.enums
     {
         public enum pictureFormats
         {
-            // write formats here
+            JPEG, PNG, GIF, BMP
         }
     }
 }

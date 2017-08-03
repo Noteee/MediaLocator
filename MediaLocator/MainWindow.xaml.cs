@@ -107,7 +107,7 @@ namespace MediaLocator
         private void fillFileList()
         {
             ListFiles.Items.Clear();
-            foreach (var file in FolderBrowser.getFileList(folderPath))
+            foreach (var file in FolderBrowser.getFileList(folderPath, folderPath))
             {
                 ListFiles.Items.Add(new ListviewText {Name = file.ToString()});
             }
@@ -118,14 +118,14 @@ namespace MediaLocator
             
         }
 
-        private void FillFilteredList()
+        /*private void FillFilteredList()
         {
             ListFiles.Items.Clear();
             foreach (var file in FolderBrowser.GetFilteredList(folderPath))
             {
                 ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
             }
-        }
+        }*/
 
 
 
