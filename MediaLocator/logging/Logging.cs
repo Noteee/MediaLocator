@@ -8,9 +8,11 @@ namespace MediaLocator.logging
 {
     class Logging
     {
-        public void makeLogFile()
+        public void makeLogFile(string logData)
         {
-            //method that generates the log files (either using "nlog" or VS eventlog)
+            System.IO.StreamWriter file = new System.IO.StreamWriter("c:\\test.txt", true);
+            file.WriteLine(logData);
+            file.Close();
         }
     }
 }
