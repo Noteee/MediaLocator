@@ -195,6 +195,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="components\MahApps.Metro.1.5.0\MahApps.Metro.1.5.0.nupkg" />
+    <None Include="components\MahApps.Metro.1.5.0\tools\install.ps1" />
+    <None Include="components\Ookii.Dialogs.1.0\Ookii.Dialogs.1.0.nupkg" />
+    <None Include="components\PlaylistSharp.1.0.0\PlaylistSharp.1.0.0.nupkg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -264,9 +268,22 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="components\MahApps.Metro.1.5.0\lib\net40\MahApps.Metro.dll" />
+    <Content Include="components\MahApps.Metro.1.5.0\lib\net40\MahApps.Metro.pdb" />
+    <Resource Include="components\MahApps.Metro.1.5.0\lib\net40\MahApps.Metro.XML" />
+    <Content Include="components\MahApps.Metro.1.5.0\lib\net40\System.Windows.Interactivity.dll" />
+    <Content Include="components\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll" />
+    <Content Include="components\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.pdb" />
+    <Resource Include="components\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.XML" />
+    <Content Include="components\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll" />
     <Content Include="components\NAudio.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="components\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll" />
+    <Resource Include="components\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.xml" />
+    <Resource Include="components\Ookii.Dialogs.1.0\license.txt" />
+    <Content Include="components\Ookii.Dialogs.1.0\readme.html" />
+    <Content Include="components\PlaylistSharp.1.0.0\lib\PlaylistSharpLib.dll" />
     <Content Include="components\UltraID3Lib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
