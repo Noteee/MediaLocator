@@ -18,7 +18,6 @@ using MediaLocator.filesystem;
 using MediaLocator.enums;
 using System.Collections;
 using MediaLocator.view;
-using MediaLocator.filesystem;
 using System.IO;
 
 namespace MediaLocator
@@ -44,13 +43,21 @@ namespace MediaLocator
             pictureBtn.Click += PictureBtn_Click;
             musicBtn.Click += MusicBtn_Click;
             videoBtn.Click += VideoBtn_Click;
+            albumBtn.Click += AlbumBtn_Click;
             ListFiles.MouseDoubleClick += ListFiles_MouseDoubleClick;
             hidePlayer();
             getView = new MediaView(PalyingProgress);
 
-
-
+            
     }
+
+        private void AlbumBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MediaFunctions createAlbum = new MediaFunctions();
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Provide your playlist name in the box filed.", "Give your playlist a name", "MyPlayList", -1, -1);
+            
+            createAlbum.CreateM3UData(check, folderPath, input);
+        }
 
         private void ListFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -117,6 +124,7 @@ namespace MediaLocator
             getMediaFolder();
             fillFileList();
             folderpath.Content = folderPath;
+            //watchFolder();
         }
 
         private void SlideMenu_Click(object sender, RoutedEventArgs e, StackPanel pnl)
@@ -164,7 +172,18 @@ namespace MediaLocator
             stopBtn.Opacity = 100;
             stopBtn.Click += StopBtn_Click;
             splitBtn.Opacity = 100;
+            splitBtn.Click += SplitBtn_Click;
             splitTime.Opacity = 100;
+        }
+
+        private void SplitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MediaFunctions splitter = new MediaFunctions();
+            var selectedStockObject = ListFiles.SelectedItem as ListviewText;
+            string filename = selectedStockObject.ToString();
+            string fullPath = folderPath + @"\" + filename;
+            splitter.SplitMp3(fullPath, Convert.ToInt32(splitTime.Text));
+            MessageBox.Show("Successfully exported!");
         }
 
         private void StopBtn_Click(object sender, RoutedEventArgs e)
@@ -196,7 +215,7 @@ namespace MediaLocator
             ListFiles.Items.Clear();
             foreach (var file in FolderBrowser.getFileList(folderPath, folderPath))
             {
-                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString()});
                 
             }
         }
@@ -214,21 +233,55 @@ namespace MediaLocator
         {
             check.Clear();
 
-            //string getit = "";
             int count = ListFiles.SelectedItems.Count;
             for (int i = 0; i < count; i++)
             {
                 var selectedStockObject = ListFiles.SelectedItems[i] as ListviewText;
-                check.Add(selectedStockObject);
+                check.Add(folderPath + "\\" + selectedStockObject);
 
             }
-            /*foreach (var checkd in check)
-            {
-                getit += checkd + " ";
-                MessageBox.Show(getit);
-            }*/
+
 
         }
+
+        /*public void watchFolder()
+        {
+            
+            FileSystemWatcher Watcher = new FileSystemWatcher();
+            Watcher.Path = folderPath + @"\";
+            Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+               | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            Watcher.EnableRaisingEvents = true;
+
+            Watcher.Renamed += new RenamedEventHandler(Watcher_Renamed);
+            Watcher.Changed += new FileSystemEventHandler(Watcher_OnChanged);
+            Watcher.Created += new FileSystemEventHandler(Watcher_OnChanged);
+            Watcher.Deleted += new FileSystemEventHandler(Watcher_OnChanged);
+
+
+        }
+
+        private void Watcher_OnChanged(object sender, FileSystemEventArgs e)
+        {
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.getFileList(folderPath, folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+
+            }
+        }
+
+        private void Watcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            ListFiles.Items.Clear();
+            foreach (var file in FolderBrowser.getFileList(folderPath, folderPath))
+            {
+                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+
+            }
+        }
+        */
+
 
     }
 

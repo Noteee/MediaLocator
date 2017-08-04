@@ -53,6 +53,11 @@
       <HintPath>..\packages\MediaInfo.DotNetWrapper.1.0.2.0\lib\net40\MediaInfo.DotNetWrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NAudio, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>components\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
       <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
       <Private>True</Private>
@@ -84,6 +89,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UltraID3Lib, Version=0.9.5.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>components\UltraID3Lib.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -139,7 +148,6 @@
     <Compile Include="enums\PictureFormats.cs" />
     <Compile Include="enums\VideoFormats.cs" />
     <Compile Include="filesystem\FolderBrowser.cs" />
-    <Compile Include="filesystem\FolderWatcher.cs" />
     <Compile Include="filesystem\MediaFunctions.cs" />
     <Compile Include="logging\Logging.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -198,7 +206,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="components\" />
     <Folder Include="Resources\" />
     <Folder Include="testing\" />
   </ItemGroup>
@@ -255,6 +262,14 @@
     <Resource Include="Images\album.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="components\NAudio.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="components\UltraID3Lib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MediaInfo.Native.0.7.93\build\MediaInfo.Native.targets" Condition="Exists('..\packages\MediaInfo.Native.0.7.93\build\MediaInfo.Native.targets')" />

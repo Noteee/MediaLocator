@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:MediaLocator"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Media Locator Application" Height="600" Width="950">
+        Title="Media Locator Application" Height="600" Width="950"
+        xmlns:self="clr-namespace:MediaLocator">
     <Window.Resources>
         <Storyboard x:Key="sbShowBottomMenu" >
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="561,540,0,-40" To="561,500,0,0" DecelerationRatio="0.9" Duration="0:0:1" />
@@ -55,6 +56,7 @@
         </Style>
     </Window.Resources>
     <Grid>
+        
 
         <Rectangle x:Name="playerBg" HorizontalAlignment="Left" Height="71" Margin="5,494,0,0" VerticalAlignment="Top" Width="546" RadiusX="10" RadiusY="10" Fill="#FF252525">
             <Rectangle.Effect>
@@ -73,15 +75,20 @@
             <ListView.Background>
                 <ImageBrush/>
             </ListView.Background>
+            <ListView.Resources>
+                <ImageBrush x:Key="image" ImageSource="Images/picture.png" />
+                <ImageBrush x:Key="music" ImageSource="Images/music.png" />
+                <ImageBrush x:Key="video" ImageSource="Images/picture.png" />
+            </ListView.Resources>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Select">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Checked="CheckBox_Checked" IsChecked="{Binding Path=IsSelected, 
-   RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"/>
+                                <CheckBox Checked="CheckBox_Checked" IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"/>
+                                
                             </DataTemplate>
-                        </GridViewColumn.CellTemplate>
+                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="File Name" Width="400" DisplayMemberBinding="{Binding Name}" />
                 </GridView>

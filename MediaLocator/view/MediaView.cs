@@ -91,10 +91,19 @@ namespace MediaLocator.view
 
         public static double progress ()
         {
-            double duration = mediaElement.NaturalDuration.TimeSpan.TotalSeconds;
-            double playNow = mediaElement.Position.TotalSeconds;
-            double result = playNow / duration;
-            return Math.Ceiling(result * 100);
+            if (mediaElement.NaturalDuration.HasTimeSpan)
+            {
+                double duration = mediaElement.NaturalDuration.TimeSpan.TotalSeconds;
+                double playNow = mediaElement.Position.TotalSeconds;
+                double result = playNow / duration;
+                return Math.Ceiling(result * 100);
+            }
+
+            else
+            {
+                return 0;
+            }
+            
 
         }
     }
