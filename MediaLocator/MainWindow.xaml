@@ -13,5 +13,7 @@
         </Grid.ColumnDefinitions>
         <ListBox x:Name="fileListBox" HorizontalAlignment="Left" Height="199" Margin="32,26,0,0" VerticalAlignment="Top" Width="462" SelectionChanged="fileListBox_SelectionChanged" Grid.ColumnSpan="2"/>
         <ListBox x:Name="fileListBox2" HorizontalAlignment="Left" Height="199" Margin="538,26,0,0" VerticalAlignment="Top" Width="448" Grid.ColumnSpan="2"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="32,249,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="32,295,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

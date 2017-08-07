@@ -72,5 +72,13 @@ namespace MediaLocator
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            FileModification fileModification = new FileModification(DateTime.Now, fileListBox.SelectedItem.ToString(), fileListBox.SelectedItem.ToString(), "split");
+            fileModification.addModificationToList(modificationList);
+            Logging.AppendToLogFile(modificationList);
+
+        }
     }
 }
