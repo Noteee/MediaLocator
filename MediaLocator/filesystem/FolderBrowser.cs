@@ -11,60 +11,144 @@ namespace MediaLocator.filesystem
 {
     class FolderBrowser
     {
-        public void getFolder()
-        {
-            // use FolderBrowserDialog for browsing
-            // then path should equals the browsed path
-        }
-        public string getPath(string path)
+        static string[] pictures = Enum.GetNames(typeof(PictureFormats.pictureFormats));
+        static string [] videos = Enum.GetNames(typeof(VideoFormats.videoFormats));
+        static string[] musics = Enum.GetNames(typeof(MusicFormats.musicFormats));
+        public static ArrayList getFileList(string sDir, string dir)
         {
 
-            return path;
-        }
-        public static ArrayList getFileList(string sDir)
-        {
+            int dirLenght = dir.Length;
+
             ArrayList files = new ArrayList();
             try
             {
-
-                FileInfo[] collection = new DirectoryInfo(sDir).GetFiles();
-                foreach (var fileinfo in collection)
-                {
-                    files.Add(fileinfo.Name);
-                }
-                   
                 
+                foreach (string fi in Directory.GetFiles(sDir))
+                {
+                     foreach(string ex in pictures)
+                     {
+
+                         if (ex.Equals(Path.GetExtension(fi).Substring(1, Path.GetExtension(fi).Length-1).ToUpper()))
+                         {
+                             files.Add(Path.GetFileName(fi));
+                         }
+                     }
+                    foreach (string ex in musics)
+                    {
+
+                        if (ex.Equals(Path.GetExtension(fi).Substring(1, Path.GetExtension(fi).Length - 1).ToUpper()))
+                        {
+                            files.Add(Path.GetFileName(fi));
+                        }
+                    }
+                    foreach (string ex in videos)
+                    {
+
+                        if (ex.Equals(Path.GetExtension(fi).Substring(1, Path.GetExtension(fi).Length - 1).ToUpper()))
+                        {
+                            files.Add(Path.GetFileName(fi));
+                        }
+                    }
+
+                }
+
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    foreach (string f in Directory.GetFiles(d))
+                    {
+                        string path = Path.GetDirectoryName(f);
+                        string foldersPath = path.Substring(dirLenght + 1, path.Length - dirLenght - 1);
+                        string getPath = Path.Combine(foldersPath, Path.GetFileName(f));
+
+                        foreach (string ex in pictures)
+                        {
+
+                            if (ex.Equals(Path.GetExtension(f).Substring(1, Path.GetExtension(f).Length - 1).ToUpper()))
+                            {
+                                files.Add(getPath);
+                            }
+                        }
+                        foreach (string ex in musics)
+                        {
+
+                            if (ex.Equals(Path.GetExtension(f).Substring(1, Path.GetExtension(f).Length - 1).ToUpper()))
+                            {
+                                files.Add(getPath);
+                            }
+                        }
+                        foreach (string ex in videos)
+                        {
+
+                            if (ex.Equals(Path.GetExtension(f).Substring(1, Path.GetExtension(f).Length - 1).ToUpper()))
+                            {
+                                files.Add(getPath);
+                            }
+                        }
+
+                    }
+                    getFileList(d, dir);
+                }
             }
             catch (System.Exception excpt)
             {
                 Console.WriteLine(excpt.Message);
+
             }
             return files;
         }
-        public static ArrayList GetFilteredList(ArrayList formatList,string filePath)
+
+        public static ArrayList GetFilteredList(string[] formats, string sDir, string dir)
         {
+            int dirLenght = dir.Length;
+
             ArrayList filteredList = new ArrayList();
 
-           
-                FileInfo[] collection = new DirectoryInfo(filePath).GetFiles();
-                    foreach (var fileinfo in collection)
+            foreach (string fi in Directory.GetFiles(sDir))
+            {
+                foreach (string ex in formats)
+                {
+
+                    if (ex.Equals(Path.GetExtension(fi).Substring(1, Path.GetExtension(fi).Length - 1).ToUpper()))
                     {
-                        foreach(var extension in formatList)
+                        filteredList.Add(Path.GetFileName(fi));
+                    }
+                }
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    foreach (string f in Directory.GetFiles(d))
+                    {
+                        string path = Path.GetDirectoryName(f);
+                        string foldersPath = path.Substring(dirLenght + 1, path.Length - dirLenght - 1);
+                        string getPath = Path.Combine(foldersPath, Path.GetFileName(f));
+
+                        foreach (string ex in formats)
                         {
-                            if(fileinfo.Extension.ToUpper().Equals("." + extension.ToString().ToUpper()))
+
+                            if (ex.Equals(Path.GetExtension(f).Substring(1, Path.GetExtension(f).Length - 1).ToUpper()))
                             {
-                                filteredList.Add(fileinfo.Name);
-                                Console.WriteLine(fileinfo.Name);
-                            
+                                filteredList.Add(getPath);
                             }
                         }
-                        
                     }
-                           
+                    getFileList(d, dir);
 
-
+                }
+                   
+                }
             return filteredList;
         }
 
+        public static string [] getPictures ()
+        {
+            return pictures;
+        }
+        public static string[] getMusics()
+        {
+            return musics;
+        }
+        public static string[] getVideos()
+        {
+            return videos;
+        }
     }
 }
