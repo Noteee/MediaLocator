@@ -119,6 +119,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="enums\Formats.cs" />
+    <Compile Include="logging\FileModification.cs" />
     <Compile Include="view\MediaDesign.cs" />
     <Compile Include="view\MediaView.cs" />
     <Page Include="MainWindow.xaml">
