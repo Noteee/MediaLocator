@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using HundredMilesSoftware.UltraID3Lib;
 using NAudio.Wave;
 using System.Collections;
+using System.Windows;
 
 namespace MediaLocator.filesystem
 {
@@ -75,39 +76,44 @@ namespace MediaLocator.filesystem
 
         public void SplitMp3(string mp3Path, int splitLength)
         {
-            var mp3Dir = Path.GetDirectoryName(mp3Path);
-            var mp3File = Path.GetFileName(mp3Path);
-            var splitDir = Path.Combine(mp3Dir, Path.GetFileNameWithoutExtension(mp3Path));
-            Directory.CreateDirectory(splitDir);
-
-            int splitI = 0;
-            int secsOffset = 0;
-
-            using (var reader = new Mp3FileReader(mp3Path))
+            if (splitLength > 0)
             {
-                FileStream writer = null;
-                Action createWriter = new Action(() => {
-                    writer = File.Create(Path.Combine(splitDir, Path.ChangeExtension(mp3File, (++splitI).ToString("D4") + ".mp3")));
-                });
+                var mp3Dir = Path.GetDirectoryName(mp3Path);
+                var mp3File = Path.GetFileName(mp3Path);
+                var splitDir = Path.Combine(mp3Dir, Path.GetFileNameWithoutExtension(mp3Path));
+                Directory.CreateDirectory(splitDir);
 
-                Mp3Frame frame;
-                while ((frame = reader.ReadNextFrame()) != null)
+                int splitI = 0;
+                int secsOffset = 0;
+
+                using (var reader = new Mp3FileReader(mp3Path))
                 {
-                    if (writer == null) createWriter();
+                    FileStream writer = null;
+                    Action createWriter = new Action(() => {
+                        writer = File.Create(Path.Combine(splitDir, Path.ChangeExtension(mp3File, (++splitI).ToString("D4") + ".mp3")));
+                    });
 
-                    if ((int)reader.CurrentTime.TotalSeconds - secsOffset >= splitLength)
+                    Mp3Frame frame;
+                    while ((frame = reader.ReadNextFrame()) != null)
                     {
-                        // time for a new file
-                        writer.Dispose();
-                        createWriter();
-                        secsOffset = (int)reader.CurrentTime.TotalSeconds;
+                        if (writer == null) createWriter();
+
+                        if ((int)reader.CurrentTime.TotalSeconds - secsOffset >= splitLength)
+                        {
+                            // time for a new file
+                            writer.Dispose();
+                            createWriter();
+                            secsOffset = (int)reader.CurrentTime.TotalSeconds;
+                        }
+
+                        writer.Write(frame.RawData, 0, frame.RawData.Length);
                     }
+                    MessageBox.Show("Successfully exported!");
 
-                    writer.Write(frame.RawData, 0, frame.RawData.Length);
+                    if (writer != null) writer.Dispose();
                 }
-
-                if (writer != null) writer.Dispose();
             }
+            
 
         }
 

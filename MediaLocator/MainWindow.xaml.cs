@@ -61,33 +61,45 @@ namespace MediaLocator
 
         private void ListFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            PalyingProgress.Value = 0;
-            var selectedStockObject = ListFiles.SelectedItem as ListviewText;
-            string filename = selectedStockObject.ToString();
-            string fullPath = folderPath + @"\" + filename;
-            getView.getMedia(fullPath, mediaPanel);
-
-            FileInfo file = new FileInfo(fullPath);
-            string ex = file.Extension.Substring(1, file.Extension.Length - 1);
-            hidePlayer();
-            foreach (string item in FolderBrowser.getMusics())
+            try
             {
-                if (item.Equals(ex.ToUpper()))
+                PalyingProgress.Value = 0;
+                var selectedStockObject = ListFiles.SelectedItem as ListviewText;
+                string filename = selectedStockObject.ToString();
+                string fullPath = folderPath + @"\" + filename;
+                getView.getMedia(fullPath, mediaPanel);
+
+                FileInfo file = new FileInfo(fullPath);
+                string ex = file.Extension.Substring(1, file.Extension.Length - 1);
+                hidePlayer();
+                foreach (string item in FolderBrowser.getMusics())
                 {
-                    showPlayer();
+                    if (item.Equals(ex.ToUpper()))
+                    {
+                        showPlayer();
+
+                    }
 
                 }
-
-            }
-            foreach (string item in FolderBrowser.getVideos())
-            {
-                if (item.Equals(ex.ToUpper()))
+                foreach (string item in FolderBrowser.getVideos())
                 {
-                    showPlayer();
+                    if (item.Equals(ex.ToUpper()))
+                    {
+                        showPlayer();
+                    }
                 }
+                MediaView.playMedia();
+                getView.setTimer();
             }
-            MediaView.playMedia();
-            getView.setTimer();
+            catch (NullReferenceException nre)
+            {
+                Console.WriteLine("No item selected: " + nre.Message);
+            }
+            catch (Exception allE)
+            {
+                Console.WriteLine("Error: " + allE.Message);
+            }
+            
             
 
         }
@@ -104,10 +116,20 @@ namespace MediaLocator
         private void MusicBtn_Click(object sender, RoutedEventArgs e)
         {
             ListFiles.Items.Clear();
-            foreach (var file in FolderBrowser.GetFilteredList(FolderBrowser.getMusics(), folderPath, folderPath))
+            try
             {
-                ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+                foreach (var file in FolderBrowser.GetFilteredList(FolderBrowser.getMusics(), folderPath, folderPath))
+                {
+                    ListFiles.Items.Add(new ListviewText { Name = file.ToString() });
+                }
             }
+            catch (NullReferenceException nre)
+            {
+                Console.WriteLine(nre.Message);
+                
+            }
+            
+            
         }
 
         private void PictureBtn_Click(object sender, RoutedEventArgs e)
@@ -183,7 +205,7 @@ namespace MediaLocator
             string filename = selectedStockObject.ToString();
             string fullPath = folderPath + @"\" + filename;
             splitter.SplitMp3(fullPath, Convert.ToInt32(splitTime.Text));
-            MessageBox.Show("Successfully exported!");
+            
         }
 
         private void StopBtn_Click(object sender, RoutedEventArgs e)
