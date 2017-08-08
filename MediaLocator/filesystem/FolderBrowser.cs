@@ -16,12 +16,13 @@ namespace MediaLocator.filesystem
         static string[] musics = Enum.GetNames(typeof(MusicFormats.musicFormats));
         public static ArrayList getFileList(string sDir, string dir)
         {
-
-            int dirLenght = dir.Length;
-
             ArrayList files = new ArrayList();
             try
             {
+            int dirLenght = dir.Length;
+
+            
+            
                 
                 foreach (string fi in Directory.GetFiles(sDir))
                 {
@@ -86,6 +87,7 @@ namespace MediaLocator.filesystem
                         }
 
                     }
+                    
                     getFileList(d, dir);
                 }
             }
@@ -99,42 +101,48 @@ namespace MediaLocator.filesystem
 
         public static ArrayList GetFilteredList(string[] formats, string sDir, string dir)
         {
-            int dirLenght = dir.Length;
-
             ArrayList filteredList = new ArrayList();
-
-            foreach (string fi in Directory.GetFiles(sDir))
+            try
             {
-                foreach (string ex in formats)
+                int dirLenght = dir.Length;
+                foreach (string fi in Directory.GetFiles(sDir))
                 {
-
-                    if (ex.Equals(Path.GetExtension(fi).Substring(1, Path.GetExtension(fi).Length - 1).ToUpper()))
+                    foreach (string ex in formats)
                     {
-                        filteredList.Add(Path.GetFileName(fi));
-                    }
-                }
-                foreach (string d in Directory.GetDirectories(sDir))
-                {
-                    foreach (string f in Directory.GetFiles(d))
-                    {
-                        string path = Path.GetDirectoryName(f);
-                        string foldersPath = path.Substring(dirLenght + 1, path.Length - dirLenght - 1);
-                        string getPath = Path.Combine(foldersPath, Path.GetFileName(f));
 
-                        foreach (string ex in formats)
+                        if (ex.Equals(Path.GetExtension(fi).Substring(1, Path.GetExtension(fi).Length - 1).ToUpper()))
                         {
-
-                            if (ex.Equals(Path.GetExtension(f).Substring(1, Path.GetExtension(f).Length - 1).ToUpper()))
-                            {
-                                filteredList.Add(getPath);
-                            }
+                            filteredList.Add(Path.GetFileName(fi));
                         }
                     }
-                    getFileList(d, dir);
+                    foreach (string d in Directory.GetDirectories(sDir))
+                    {
+                        foreach (string f in Directory.GetFiles(d))
+                        {
+                            string path = Path.GetDirectoryName(f);
+                            string foldersPath = path.Substring(dirLenght + 1, path.Length - dirLenght - 1);
+                            string getPath = Path.Combine(foldersPath, Path.GetFileName(f));
+
+                            foreach (string ex in formats)
+                            {
+
+                                if (ex.Equals(Path.GetExtension(f).Substring(1, Path.GetExtension(f).Length - 1).ToUpper()))
+                                {
+                                    filteredList.Add(getPath);
+                                }
+                            }
+                        }
+                        getFileList(d, dir);
+
+                    }
 
                 }
-                   
-                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
             return filteredList;
         }
 
