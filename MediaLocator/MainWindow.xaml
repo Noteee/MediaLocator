@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="Media Locator Application" Height="600" Width="950"
-        xmlns:self="clr-namespace:MediaLocator">
+        xmlns:self="clr-namespace:MediaLocator" KeyDown="MetroWindow_KeyDown">
     <Window.Resources>
         <Storyboard x:Key="sbShowBottomMenu" >
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="561,540,0,-40" To="561,500,0,0" DecelerationRatio="0.9" Duration="0:0:1" />
@@ -55,8 +55,8 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
-        
+    <Grid x:Name="mainWindow">
+
 
         <Rectangle x:Name="playerBg" HorizontalAlignment="Left" Height="71" Margin="5,494,0,0" VerticalAlignment="Top" Width="546" RadiusX="10" RadiusY="10" Fill="#FF252525">
             <Rectangle.Effect>
@@ -64,7 +64,7 @@
             </Rectangle.Effect>
         </Rectangle>
 
-        <Rectangle HorizontalAlignment="Left" Height="38" Margin="10,27,0,0" Stroke="#FF191919" VerticalAlignment="Top" Width="827" RadiusX="10" RadiusY="10" Fill="#FF252525">
+        <Rectangle x:Name="lblBackgroundTile" HorizontalAlignment="Left" Height="38" Margin="10,27,0,0" Stroke="#FF191919" VerticalAlignment="Top" Width="827" RadiusX="10" RadiusY="10" Fill="#FF252525">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="10" Opacity="0.5"/>
             </Rectangle.Effect>
@@ -86,9 +86,9 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox Checked="CheckBox_Checked" IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"/>
-                                
+
                             </DataTemplate>
-                         </GridViewColumn.CellTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="File Name" Width="400" DisplayMemberBinding="{Binding Name}" />
                 </GridView>
@@ -191,6 +191,8 @@
                 <TranslateTransform />
             </Button.RenderTransform>
         </Button>
+        <Image x:Name="fullScrnBtn" HorizontalAlignment="Left" Margin="368,520,0,18" Width="44" Source="Images/search.png" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+        <StackPanel x:Name="fcrnPanel" HorizontalAlignment="Left" Height="489" Margin="4,5,0,0" VerticalAlignment="Top" Width="938"/>
 
     </Grid>
 </Controls:MetroWindow>

@@ -27,6 +27,7 @@ namespace MediaLocator
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public TimeSpan moviePosition;
         private int clicks = 1;
         private string folderPath;
         public static ArrayList check = new ArrayList();
@@ -88,7 +89,7 @@ namespace MediaLocator
                         showPlayer();
                     }
                 }
-                MediaView.playMedia();
+                getView.playMedia();
                 getView.setTimer();
             }
             catch (NullReferenceException nre)
@@ -181,6 +182,7 @@ namespace MediaLocator
             stopBtn.Opacity = 0;
             splitBtn.Opacity = 0;
             splitTime.Opacity = 0;
+            fullScrnBtn.Opacity = 0;
         }
 
         private void showPlayer()
@@ -196,6 +198,7 @@ namespace MediaLocator
             splitBtn.Opacity = 100;
             splitBtn.Click += SplitBtn_Click;
             splitTime.Opacity = 100;
+            fullScrnBtn.Opacity = 100;
         }
 
         private void SplitBtn_Click(object sender, RoutedEventArgs e)
@@ -210,17 +213,19 @@ namespace MediaLocator
 
         private void StopBtn_Click(object sender, RoutedEventArgs e)
         {
-            MediaView.stopMedia();
+            getView.stopMedia();
         }
 
         private void PauseBtn_Click(object sender, RoutedEventArgs e)
         {
-            MediaView.pauseMedia();
+            getView.pauseMedia();
         }
 
         private void PlayBtn_Click(object sender, RoutedEventArgs e)
         {
-            MediaView.playMedia();
+            getView.playMedia();
+            
+            Console.WriteLine(getView.mediaElement.Position);
         }
 
         private void getMediaFolder()
@@ -260,10 +265,79 @@ namespace MediaLocator
             {
                 var selectedStockObject = ListFiles.SelectedItems[i] as ListviewText;
                 check.Add(folderPath + "\\" + selectedStockObject);
-
+                
             }
 
 
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var position = getView.mediaElement.Position;
+
+            moviePosition = position;
+            Console.WriteLine(getView.mediaElement.Position.ToString());
+            MediaView mv = new MediaView(new ProgressBar());
+            Window1 w1 = new Window1();
+
+            var selectedStockObject = ListFiles.SelectedItem as ListviewText;
+
+            w1.WindowStyle = WindowStyle.None;
+            w1.ResizeMode = ResizeMode.NoResize;
+            w1.Left = 0;
+            w1.Top = 0;
+            w1.Width = SystemParameters.VirtualScreenWidth;
+            w1.Height = SystemParameters.VirtualScreenHeight;
+            w1.Topmost = true;
+            w1.fullscrnPanel.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
+            w1.fullscrnPanel.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
+
+            string filename = selectedStockObject.ToString();
+            string fullPath = folderPath + @"\" + filename;
+            w1.Show();
+
+            mv.getMedia(fullPath, w1.fullscrnPanel);
+            mv.mediaElement.Position = moviePosition;
+            mv.playMedia();
+
+            
+
+
+
+
+        }
+
+        private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+            {
+                var position = getView.mediaElement.Position;
+
+                moviePosition = position;
+                Console.WriteLine(getView.mediaElement.Position.ToString());
+                MediaView mv = new MediaView(new ProgressBar());
+                Window1 w1 = new Window1();
+
+                var selectedStockObject = ListFiles.SelectedItem as ListviewText;
+
+                w1.WindowStyle = WindowStyle.None;
+                w1.ResizeMode = ResizeMode.NoResize;
+                w1.Left = 0;
+                w1.Top = 0;
+                w1.Width = SystemParameters.VirtualScreenWidth;
+                w1.Height = SystemParameters.VirtualScreenHeight;
+                w1.Topmost = true;
+                w1.fullscrnPanel.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
+                w1.fullscrnPanel.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
+
+                string filename = selectedStockObject.ToString();
+                string fullPath = folderPath + @"\" + filename;
+                w1.Show();
+
+                mv.getMedia(fullPath, w1.fullscrnPanel);
+                mv.mediaElement.Position = moviePosition;
+                mv.playMedia();
+            }
         }
 
         /*public void watchFolder()

@@ -16,12 +16,14 @@ namespace MediaLocator.view
     class MediaView
     {
         DispatcherTimer timer = new DispatcherTimer();
-        public static MediaElement mediaElement;
+        public MediaElement mediaElement;
         ProgressBar slide;
 
         public MediaView(ProgressBar slide)
         {
             this.slide = slide;
+            mediaElement = new MediaElement();
+
         }
         public void getMedia(string path, StackPanel panel)
         {
@@ -40,6 +42,7 @@ namespace MediaLocator.view
             
 
             panel.Children.Add(mediaElement);
+
 
         }
 
@@ -72,24 +75,24 @@ namespace MediaLocator.view
             slide.Value = progress();
         }
 
-        public static void playMedia()
+        public  void playMedia()
         {
             mediaElement.Play();
             
         }
 
-        public static void stopMedia()
+        public  void stopMedia()
         {
             mediaElement.Stop();
         }
 
-        public static void pauseMedia()
+        public  void pauseMedia()
         {
             mediaElement.Pause();
 
         }
 
-        public static double progress ()
+        public  double progress ()
         {
             if (mediaElement.NaturalDuration.HasTimeSpan)
             {
