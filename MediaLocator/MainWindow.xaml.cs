@@ -19,6 +19,11 @@ using MediaLocator.enums;
 using System.Collections;
 using MediaLocator.view;
 using System.IO;
+using MediaLocator.logging;
+
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace MediaLocator
 {
@@ -32,7 +37,8 @@ namespace MediaLocator
         private string folderPath;
         public static ArrayList check = new ArrayList();
         private static MediaView getView;
-
+        private string mp3FilePath;
+        private static List<FileModification> fileModificationList = new List<FileModification>();
 
 
 
@@ -72,7 +78,16 @@ namespace MediaLocator
 
                 FileInfo file = new FileInfo(fullPath);
                 string ex = file.Extension.Substring(1, file.Extension.Length - 1);
-                hidePlayer();
+
+                HideSplitBtn();
+
+                if (System.IO.Path.GetExtension(fullPath).Equals(".mp3"))
+                {
+                    ShowSplitBtn();
+                    mp3FilePath = fullPath;
+                    FillIDList();
+
+                }
                 foreach (string item in FolderBrowser.getMusics())
                 {
                     if (item.Equals(ex.ToUpper()))
@@ -91,6 +106,13 @@ namespace MediaLocator
                 }
                 getView.playMedia();
                 getView.setTimer();
+
+
+                if (!System.IO.Path.GetExtension(fullPath).Equals(".mp3"))
+                {
+                    HideSplitBtn();
+
+                }
             }
             catch (NullReferenceException nre)
             {
@@ -129,8 +151,11 @@ namespace MediaLocator
                 Console.WriteLine(nre.Message);
                 
             }
-            
-            
+
+         
+
+
+
         }
 
         private void PictureBtn_Click(object sender, RoutedEventArgs e)
@@ -175,6 +200,7 @@ namespace MediaLocator
 
         private void hidePlayer()
         {
+            concateBtn.Opacity = 0;
             playerBg.Opacity = 0;
             PalyingProgress.Opacity = 0;
             playBtn.Opacity = 0;
@@ -187,6 +213,7 @@ namespace MediaLocator
 
         private void showPlayer()
         {
+            concateBtn.Opacity = 100;
             playerBg.Opacity = 100;
             PalyingProgress.Opacity = 100;
             playBtn.Opacity = 100;
@@ -200,11 +227,23 @@ namespace MediaLocator
             splitTime.Opacity = 100;
             fullScrnBtn.Opacity = 100;
         }
+        private void ShowIDTagBox()
+        {
+            IDTagBox.Opacity = 100;
+           
+        }
+        private void HideIDTagBox()
+        {
+            IDTagBox.Opacity = 0;
 
+        }
         private void SplitBtn_Click(object sender, RoutedEventArgs e)
         {
+            FileModification fileModification = new FileModification(DateTime.Now, mp3FilePath, ".mp3", "Split interval: " + splitTime.Text);
+            fileModification.addModificationToList(fileModificationList);
+            Logging.AppendToLogFile(fileModificationList);
             MediaFunctions splitter = new MediaFunctions();
-            var selectedStockObject = ListFiles.SelectedItem as ListviewText;
+            var selectedStockObject = ListFiles.SelectedItem as ListviewText;       
             string filename = selectedStockObject.ToString();
             string fullPath = folderPath + @"\" + filename;
             splitter.SplitMp3(fullPath, Convert.ToInt32(splitTime.Text));
@@ -267,6 +306,66 @@ namespace MediaLocator
                 check.Add(folderPath + "\\" + selectedStockObject);
                 
             }
+
+
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void IDTagBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        
+        private void IDTagBox_ItemDoubleClicked(object sender,MouseButtonEventArgs e)
+        {
+
+            try
+            {
+                MediaView.CloseMedia();
+                if (IDTagBox.SelectedIndex == 0)
+                {
+                    MediaFunctions.SetTitle(mp3FilePath, Microsoft.VisualBasic.Interaction.InputBox("Please enter the value you wish to assign?", "Title", IDTagBox.Items.GetItemAt(0).ToString()));
+                }
+                if (IDTagBox.SelectedIndex == 1)
+                {
+                    MediaFunctions.SetArtist(mp3FilePath, Microsoft.VisualBasic.Interaction.InputBox("Please enter the value you wish to assign?", "Artist", IDTagBox.Items.GetItemAt(1).ToString()));
+                }
+                if (IDTagBox.SelectedIndex == 2)
+                {
+                    MediaFunctions.SetAlbum(mp3FilePath, Microsoft.VisualBasic.Interaction.InputBox("Please enter the value you wish to assign?", "Album", IDTagBox.Items.GetItemAt(2).ToString()));
+                }
+                if (IDTagBox.SelectedIndex == 3)
+                {
+                    string yearString = Microsoft.VisualBasic.Interaction.InputBox("Please enter the value you wish to assign?", "Year", (IDTagBox.Items.GetItemAt(3).ToString()));
+                    short yearShort = short.Parse(yearString);
+                    MediaFunctions.SetYear(mp3FilePath, yearShort);
+                }
+                if (4 <= IDTagBox.SelectedIndex)
+                {
+                    System.Windows.MessageBox.Show("Unmodifiable parameter :( !");
+                }
+                FillIDList();
+        
+            }
+            catch(Exception) { }
+
+
+        }
+        private void FillIDList()
+        {
+            hidePlayer();
+            IDTagBox.Items.Clear();
+            ShowIDTagBox();
+        
+           
+            foreach (String idTag in MediaFunctions.ViewMp3Tags(mp3FilePath))
+            {
+                Console.WriteLine(idTag);
+                IDTagBox.Items.Add(idTag);
 
 
         }
@@ -340,6 +439,39 @@ namespace MediaLocator
             }
         }
 
+       private void HideSplitBtn()
+        {
+            concateBtn.Opacity = 0;
+            splitBtn.Opacity = 0;
+            splitTime.Opacity = 0;
+        }
+       
+       private void ShowSplitBtn()
+        {
+            concateBtn.Opacity = 100;
+            splitBtn.Opacity = 100;
+            splitTime.Opacity = 100;
+        }
+
+        private void concateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FileModification fileModification = new FileModification(DateTime.Now, mp3FilePath, ".mp3", "concate");
+            fileModification.addModificationToList(fileModificationList);
+            Logging.AppendToLogFile(fileModificationList);
+            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            if (dialog.ShowDialog(this).GetValueOrDefault())
+            {
+                folderPath = dialog.SelectedPath;
+            }
+        }
+
+
+
+
+
+
+
+
         /*public void watchFolder()
         {
             
@@ -380,5 +512,6 @@ namespace MediaLocator
 
 
     }
+
 
 }

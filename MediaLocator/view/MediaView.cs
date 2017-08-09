@@ -45,6 +45,7 @@ namespace MediaLocator.view
 
 
         }
+       
 
         private void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
@@ -90,6 +91,10 @@ namespace MediaLocator.view
         {
             mediaElement.Pause();
 
+        }
+        public static void CloseMedia()
+        {
+            mediaElement.Close();
         }
 
         public  double progress ()

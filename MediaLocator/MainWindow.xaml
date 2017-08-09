@@ -71,7 +71,7 @@
         </Rectangle>
         <Image x:Name="search" HorizontalAlignment="Left" Height="25" Margin="22,35,0,0" VerticalAlignment="Top" Width="25" Source="pack://application:,,,/Images/search.png" RenderTransformOrigin="0.42,0.609"/>
 
-        <ListView x:Name="ListFiles" HorizontalAlignment="Left" Height="409" Margin="561,79,0,0" VerticalAlignment="Top" Width="371" Foreground="White" BorderBrush="{x:Null}">
+        <ListView x:Name="ListFiles" Height="409" Margin="561,79,0,0" VerticalAlignment="Top" Foreground="White" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="371">
             <ListView.Background>
                 <ImageBrush/>
             </ListView.Background>
@@ -120,7 +120,7 @@
 
         </Button>
         <Label x:Name="folderpath" Content="Choose folder . . ." HorizontalAlignment="Left" Margin="52,34,0,0" VerticalAlignment="Top" Foreground="#FFA2A2A5" Width="772"/>
-        <StackPanel x:Name="mediaPanel" Height="396" Margin="10,92,399,0" VerticalAlignment="Top"/>
+        <StackPanel x:Name="mediaPanel" Margin="10,92,541,81"/>
         <Button x:Name="pictureBtn" Content="" HorizontalAlignment="Left" Margin="606,572,0,-43" Width="40" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.422,0.472" BorderThickness="0" ClickMode="Press" Focusable="False" Style="{StaticResource MyButton}" ToolTip="Show only images">
             <Button.Background>
                 <ImageBrush ImageSource="pack://application:,,,/Images/picture.png" Stretch="Uniform"/>
@@ -173,7 +173,7 @@
             </Button.RenderTransform>
         </Button>
         <Button x:Name="splitBtn" Content="" HorizontalAlignment="Left" Margin="450,515,0,14"
-            Width="34" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.422,0.472" BorderThickness="0" ClickMode="Press" Focusable="False" Style="{StaticResource MyButton}" ToolTip="Split">
+            Width="34" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.422,0.472" BorderThickness="0" ClickMode="Press" Focusable="False" Style="{StaticResource MyButton}" ToolTip="Split" >
             <Button.Background>
                 <ImageBrush ImageSource="Images/split.png" Stretch="Uniform"/>
             </Button.Background>
@@ -191,8 +191,24 @@
                 <TranslateTransform />
             </Button.RenderTransform>
         </Button>
-        <Image x:Name="fullScrnBtn" HorizontalAlignment="Left" Margin="368,520,0,18" Width="44" Source="Images/search.png" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-        <StackPanel x:Name="fcrnPanel" HorizontalAlignment="Left" Height="489" Margin="4,5,0,0" VerticalAlignment="Top" Width="938"/>
+        <ListView MouseDoubleClick="IDTagBox_ItemDoubleClicked" x:Name="IDTagBox" HorizontalAlignment="Left" Height="409" Margin="937,79,-77,0" VerticalAlignment="Top" Width="192" SelectionChanged="IDTagBox_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="concateBtn" Content="" HorizontalAlignment="Left" Margin="416,523,0,21"
+            Width="34" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.422,0.472" BorderThickness="0" ClickMode="Press" Focusable="False" Style="{StaticResource MyButton}" ToolTip="Concate files" Click="concateBtn_Click" >
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="Images/merge.png"/>
+            </Button.Background>
+            <Button.RenderTransform>
+                <TranslateTransform />
+            </Button.RenderTransform>
+        </Button>
+
+
 
     </Grid>
 </Controls:MetroWindow>

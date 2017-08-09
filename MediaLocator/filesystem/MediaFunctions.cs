@@ -9,22 +9,25 @@ using HundredMilesSoftware.UltraID3Lib;
 using NAudio.Wave;
 using System.Collections;
 using System.Windows;
+using MediaLocator.logging;
 
 namespace MediaLocator.filesystem
 {
     class MediaFunctions
     {
 
-        public List<string> ViewMp3Tags(string path)
-        {
+        public static List<string> ViewMp3Tags(string path)
+    
+        {   
             List<string> tags = new List<string>();
             UltraID3 data = new UltraID3();
             data.Read(path);
             tags.Add(data.Title);
+            Console.WriteLine(data.Title);
             tags.Add(data.Artist);
             tags.Add(data.Album);
-            tags.Add(data.Duration.ToString());
             tags.Add(data.Year.ToString());
+            tags.Add(data.Duration.ToString());
             tags.Add(data.TrackNum.ToString());
             tags.Add(data.Genre);
             return tags;
@@ -33,37 +36,54 @@ namespace MediaLocator.filesystem
 
         }
 
-        public void SetTitle(string path, string newTitle)
+        public static void SetTitle(string path, string newTitle)
         {
-            UltraID3 data = new UltraID3();
-            data.Read(path);
-            data.Title = newTitle;
-            data.Write();
+            try
+            {
+                UltraID3 data = new UltraID3();
+                data.Read(path);
+                data.Title = newTitle;
+
+                data.Write();
+            }
+            catch(Exception e) { }
         }
 
-        public void SetArtist(string path, string newArtist)
+        public static void SetArtist(string path, string newArtist)
         {
-            UltraID3 data = new UltraID3();
-            data.Read(path);
-            data.Artist = newArtist;
-            data.Write();
+            try
+            {
+                UltraID3 data = new UltraID3();
+                data.Read(path);
+                data.Artist = newArtist;
+                data.Write();
+            }
+            catch (Exception e) { }
         }
 
-        public void SetAlbum(string path, string newAlbum)
+        public static void SetAlbum(string path, string newAlbum)
         {
-            UltraID3 data = new UltraID3();
-            data.Read(path);
-            data.Album = newAlbum;
-            data.Write();
+            try
+            {
+                UltraID3 data = new UltraID3();
+                data.Read(path);
+                data.Album = newAlbum;
+                data.Write();
+            }
+            catch (Exception e) { }
         }
 
 
-        public void SetYear(string path, short newYear)
+        public static void SetYear(string path, short newYear)
         {
-            UltraID3 data = new UltraID3();
-            data.Read(path);
-            data.Year = newYear;
-            data.Write();
+            try
+            {
+                UltraID3 data = new UltraID3();
+                data.Read(path);
+                data.Year = newYear;
+                data.Write();
+            }
+            catch (Exception e) { }
         }
 
         public void Combine(string[] mp3Files, string mp3OuputFile)
@@ -128,7 +148,7 @@ namespace MediaLocator.filesystem
                     music.Read(curr);
                     allData += "#EXTINF: " + 1 + "," + music.Artist + "-" + music.Title + "\n";
                     allData += curr + "\n";
-
+                   
                 }
 
                 FileStream fs = new FileStream(destination + @"\" + filename + ".m3u", FileMode.OpenOrCreate);
