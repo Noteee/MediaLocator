@@ -55,7 +55,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid x:Name="mainWindow">
+    <Grid x:Name="mainWindow" Margin="0,-31,-187,-4">
 
 
         <Rectangle x:Name="playerBg" HorizontalAlignment="Left" Height="71" Margin="5,494,0,0" VerticalAlignment="Top" Width="546" RadiusX="10" RadiusY="10" Fill="#FF252525">

@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="Window1" Height="300" Width="300" KeyDown="Window_KeyDown">
     <Grid>
-        <StackPanel x:Name="fullscrnPanel" HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="292" KeyDown="fullscrnPanel_KeyDown"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="233*"/>
+            <ColumnDefinition Width="59*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="fullscrnPanel" HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="292" KeyDown="fullscrnPanel_KeyDown" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
